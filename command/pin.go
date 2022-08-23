@@ -52,7 +52,7 @@ func (c *PinCommand) Flags() *flag.FlagSet {
 
 	f.Int64Var(&c.flagConcurrency, "concurrency", concurrency.DefaultConcurrency(1),
 		"maximum number of concurrent resolutions")
-	f.StringVar(&c.flagParser, "parser", "actions", "parser to use")
+	f.StringVar(&c.flagParser, "parser", "workflows", "parser to use")
 	f.StringVar(&c.flagOut, "out", "", "output path (defaults to input file)")
 
 	return f

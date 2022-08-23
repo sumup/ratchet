@@ -42,7 +42,7 @@ func (c *CheckCommand) Flags() *flag.FlagSet {
 		f.PrintDefaults()
 	}
 
-	f.StringVar(&c.flagParser, "parser", "actions", "parser to use")
+	f.StringVar(&c.flagParser, "parser", "workflows", "parser to use")
 
 	return f
 }
