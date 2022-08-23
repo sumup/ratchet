@@ -15,7 +15,7 @@ func TestCheck(t *testing.T) {
 
 	ctx := context.Background()
 
-	par := new(Actions)
+	par := new(Workflows)
 
 	cases := []struct {
 		name string
@@ -104,7 +104,7 @@ func TestPin(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	par := new(Actions)
+	par := new(Workflows)
 
 	cases := []struct {
 		name string

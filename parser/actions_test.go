@@ -16,59 +16,33 @@ func TestActions_Parse(t *testing.T) {
 		{
 			name: "mostly_empty_file",
 			in: `
-jobs:
+runs:
 `,
 			exp: []string{},
 		},
 		{
 			name: "uses",
 			in: `
-jobs:
-  my_job:
-    steps:
-      - uses: 'actions/checkout@v3'
-      - uses: 'docker://ubuntu:20.04'
-      - uses: 'docker://ubuntu@sha256:47f14534bda344d9fe6ffd6effb95eefe579f4be0d508b7445cf77f61a0e5724'
-        with:
-          uses: 'foo/bar@v0'
-  other_job:
-    uses: './github/workflows/other.yml'
-  final_job:
-    uses: 'org/repo/.github/workflows/other@v0'
+runs:
+  steps:
+    - uses: 'actions/checkout@v3'
+    - name: test step with ubuntu 
+      uses: 'docker://ubuntu:20.04'
+    - uses: 'docker://ubuntu@sha256:47f14534bda344d9fe6ffd6effb95eefe579f4be0d508b7445cf77f61a0e5724'
+      with:
+        uses: 'foo/bar@v0'
+    - uses: './github/workflows/other.yml'
+    - uses: 'org/repo/.github/workflows/other@v0'
+    - name: test step with shell
+      id: shell_test
+      shell: bash
+      run: echo "uses"
 `,
 			exp: []string{
 				"actions://actions/checkout@v3",
 				"actions://org/repo/.github/workflows/other@v0",
 				"container://ubuntu:20.04",
 				"container://ubuntu@sha256:47f14534bda344d9fe6ffd6effb95eefe579f4be0d508b7445cf77f61a0e5724",
-			},
-		},
-		{
-			name: "container",
-			in: `
-jobs:
-  my_job:
-    container:
-      image: 'ubuntu:20.04'
-`,
-			exp: []string{
-				"container://ubuntu:20.04",
-			},
-		},
-		{
-			name: "services",
-			in: `
-jobs:
-  my_job:
-    services:
-      nginx:
-        image: 'nginx:1.21'
-      ubuntu:
-        image: 'ubuntu:20.04'
-`,
-			exp: []string{
-				"container://nginx:1.21",
-				"container://ubuntu:20.04",
 			},
 		},
 	}

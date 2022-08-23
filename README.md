@@ -7,7 +7,7 @@ the process of pinning and unpinning upstream versions. It's like Bundler,
 Cargo, Go modules, NPM, Pip, or Yarn, but for CI/CD workflows. Ratchet supports:
 
 -   Circle CI
--   GitHub Actions
+-   GitHub Workflows and Composite Actions
 -   Google Cloud Build
 
 
@@ -57,6 +57,9 @@ development, and it may contain unreleased features.
 # pin the input file
 ./ratchet pin workflow.yml
 
+# pin a composite action file
+./ratchet pin -parser actions action.yml
+
 # pin a circleci file
 ./ratchet pin -parser circleci circleci.yml
 
@@ -83,6 +86,9 @@ development, and it may contain unreleased features.
 # update the input file
 ./ratchet update workflow.yml
 
+# update composite action file
+./ratchet update -parser actions action.yml
+
 # update a circleci file
 ./ratchet update -parser circleci circleci.yml
 
@@ -105,7 +111,7 @@ instructions.
 **In a CI/CD workflow:**
 
 Ratchet is distributed as a very small container, so you can use it as a step
-inside CI/CD jobs. Here is a GitHub Actions example:
+inside CI/CD jobs. Here is a GitHub Workflow example:
 
 ```yaml
 jobs:
